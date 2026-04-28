@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@source "../public/social-media-10.html";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
