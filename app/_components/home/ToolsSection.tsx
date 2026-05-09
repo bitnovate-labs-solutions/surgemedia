@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { getSupabaseBrowserClient } from "../../../lib/supabaseClient";
 
 export function ToolsSection() {
@@ -25,7 +26,35 @@ export function ToolsSection() {
   const [trackingSetup, setTrackingSetup] = useState("partial");
   const [showResult, setShowResult] = useState(false);
   const [submitState, setSubmitState] = useState<"idle" | "saving" | "error">("idle");
+  const [isMounted, setIsMounted] = useState(false);
   const totalSteps = 14;
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isModalOpen) return;
+
+    const { body, documentElement } = document;
+    const prevBodyOverflow = body.style.overflow;
+    const prevHtmlOverflow = documentElement.style.overflow;
+    const prevHtmlOverscroll = documentElement.style.overscrollBehavior;
+    const prevBodyOverscroll = body.style.overscrollBehavior;
+
+    // Lock background scroll without shifting layout.
+    documentElement.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    documentElement.style.overscrollBehavior = "none";
+    body.style.overscrollBehavior = "none";
+
+    return () => {
+      documentElement.style.overflow = prevHtmlOverflow;
+      body.style.overflow = prevBodyOverflow;
+      documentElement.style.overscrollBehavior = prevHtmlOverscroll;
+      body.style.overscrollBehavior = prevBodyOverscroll;
+    };
+  }, [isModalOpen]);
 
   const audit = useMemo(() => {
     let score = 0;
@@ -314,61 +343,64 @@ export function ToolsSection() {
         </div>
       </div>
 
-      {isModalOpen ? (
-        <div className="fixed inset-0 z-[700] bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-3xl border border-gray-200 shadow-2xl p-6 md:p-8">
-            <div className="mb-6">
-              <div className="w-full text-center">
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#e33c1d] mb-2">Free online presence audit</p>
-                <h4 className="text-2xl font-semibold tracking-tight text-gray-900">Test your brand for free</h4>
+      {isMounted && isModalOpen
+        ? createPortal(
+            <div className="fixed inset-0 z-[700] bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-3xl border border-gray-200 shadow-2xl p-6 md:p-8">
+                <div className="mb-6">
+                  <div className="w-full text-center">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[#e33c1d] mb-2">Free online presence audit</p>
+                    <h4 className="text-2xl font-semibold tracking-tight text-gray-900">Test your brand for free</h4>
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <p className="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-2 text-center">
+                    Question {currentStep + 1} of {totalSteps}
+                  </p>
+                  {renderStep()}
+                </div>
+
+                <div className="flex items-center justify-center gap-2 mb-6">
+                  {Array.from({ length: totalSteps }).map((_, i) => (
+                    <span
+                      key={i}
+                      className={`h-2.5 w-2.5 rounded-full transition-colors ${i === currentStep ? "bg-black" : "bg-gray-300"}`}
+                    />
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-3 gap-3">
+                  <button type="button" onClick={goBack} disabled={currentStep === 0} className="w-full px-6 py-3 rounded-full text-sm font-medium border border-gray-300 text-gray-800 disabled:opacity-40 disabled:cursor-not-allowed hover:border-[#e33c1d] transition-colors">
+                    Back
+                  </button>
+                  {currentStep < totalSteps - 1 ? (
+                    <button type="button" disabled={!canProceed} onClick={goNext} className="w-full bg-[#e33c1d] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#c7351a] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                      Next
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        await saveAuditSubmission();
+                        setShowResult(true);
+                        setIsModalOpen(false);
+                      }}
+                      disabled={submitState === "saving"}
+                      className="w-full bg-[#e33c1d] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#c7351a] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                      {submitState === "saving" ? "Saving..." : "Show my score"}
+                    </button>
+                  )}
+                  <button type="button" onClick={() => setIsModalOpen(false)} className="w-full px-6 py-3 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:border-[#e33c1d] hover:text-[#e33c1d] transition-all duration-300">
+                    Cancel
+                  </button>
+                </div>
               </div>
-            </div>
-
-            <div className="mb-6">
-              <p className="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-2 text-center">
-                Question {currentStep + 1} of {totalSteps}
-              </p>
-              {renderStep()}
-            </div>
-
-            <div className="flex items-center justify-center gap-2 mb-6">
-              {Array.from({ length: totalSteps }).map((_, i) => (
-                <span
-                  key={i}
-                  className={`h-2.5 w-2.5 rounded-full transition-colors ${i === currentStep ? "bg-black" : "bg-gray-300"}`}
-                />
-              ))}
-            </div>
-
-            <div className="grid grid-cols-3 gap-3">
-              <button type="button" onClick={goBack} disabled={currentStep === 0} className="w-full px-6 py-3 rounded-full text-sm font-medium border border-gray-300 text-gray-800 disabled:opacity-40 disabled:cursor-not-allowed hover:border-[#e33c1d] transition-colors">
-                Back
-              </button>
-              {currentStep < totalSteps - 1 ? (
-                <button type="button" disabled={!canProceed} onClick={goNext} className="w-full bg-[#e33c1d] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#c7351a] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
-                  Next
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={async () => {
-                    await saveAuditSubmission();
-                    setShowResult(true);
-                    setIsModalOpen(false);
-                  }}
-                  disabled={submitState === "saving"}
-                  className="w-full bg-[#e33c1d] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#c7351a] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  {submitState === "saving" ? "Saving..." : "Show my score"}
-                </button>
-              )}
-              <button type="button" onClick={() => setIsModalOpen(false)} className="w-full px-6 py-3 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:border-[#e33c1d] hover:text-[#e33c1d] transition-all duration-300">
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
+            </div>,
+            document.body
+          )
+        : null}
     </section>
   );
 }
