@@ -4,7 +4,7 @@ import { Navbar } from "../_components/home/Navbar";
 
 export default function AboutPage() {
   return (
-    <div className="text-gray-900 antialiased overflow-x-hidden min-h-screen">
+    <div className="text-gray-900 antialiased overflow-x-clip min-h-screen">
       <Navbar />
       <AboutSection centerCards />
       <section className="w-full max-w-7xl mx-auto px-6 md:px-12 pb-24">

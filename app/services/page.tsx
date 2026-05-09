@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <div className="text-gray-900 antialiased overflow-x-hidden min-h-screen">
+    <div className="text-gray-900 antialiased overflow-x-clip min-h-screen">
       <Navbar />
       <DigitalServicesSection />
       <FooterSection

@@ -62,7 +62,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="text-gray-900 antialiased overflow-x-hidden min-h-screen">
+    <div className="text-gray-900 antialiased overflow-x-clip min-h-screen">
       <Navbar />
       <main className="w-full max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-20">
         <div className="flex flex-col items-center text-center mb-14 md:mb-16 animate-enter">

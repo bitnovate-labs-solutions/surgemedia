@@ -17,11 +17,23 @@ export function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
+    const html = document.documentElement;
+    if (menuOpen) {
+      html.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    } else {
+      html.style.overflow = "";
+      document.body.style.overflow = "";
+    }
     return () => {
+      html.style.overflow = "";
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -54,13 +66,25 @@ export function Navbar() {
         </div>
       </nav>
 
-      <div className={`fixed inset-0 z-[300] flex flex-col justify-center items-center gap-8 bg-white transition-opacity duration-300 md:hidden ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`} aria-hidden={!menuOpen}>
-        {navLinks.map((link) => (
-          <Link key={link.href} href={link.href} className="text-3xl font-medium tracking-tight text-gray-900 hover:text-gray-600 transition-colors" onClick={() => setMenuOpen(false)}>
-            {link.label}
-          </Link>
-        ))}
-      </div>
+      {menuOpen ? (
+        <div
+          className="fixed inset-0 z-[300] flex flex-col justify-center items-center gap-8 bg-white md:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Main menu"
+        >
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-3xl font-medium tracking-tight text-gray-900 hover:text-gray-600 transition-colors"
+              onClick={() => setMenuOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      ) : null}
     </>
   );
 }

@@ -24,7 +24,7 @@ const complianceItems = [
 
 export default function CompliancePage() {
   return (
-    <div className="text-gray-900 antialiased overflow-x-hidden min-h-screen">
+    <div className="text-gray-900 antialiased overflow-x-clip min-h-screen">
       <Navbar />
 
       <section className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-16 md:pt-20 pb-24 border-t border-gray-900/5">

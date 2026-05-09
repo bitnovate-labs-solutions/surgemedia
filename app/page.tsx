@@ -6,7 +6,7 @@ import { ToolsSection } from "./_components/home/ToolsSection";
 
 export default function HomePage() {
   return (
-    <div className="text-gray-900 antialiased overflow-x-hidden min-h-screen">
+    <div className="text-gray-900 antialiased overflow-x-clip min-h-screen">
       <Navbar />
       <HeroSection />
       <ScrollReveal delayMs={0}>
