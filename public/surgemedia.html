@@ -2,7 +2,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surge Media - Healthcare & Local Marketing</title>
+<title>Surge Media — In-Clinic DOOH Advertising & Digital Marketing, Malaysia</title>
 <!-- Fonts: Manrope (Sans) and Playfair Display (Serif for accent) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -11,6 +11,9 @@
 <!-- Iconify -->
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 <style>
+html {
+scroll-behavior: smooth;
+}
 /* Custom Animations */
 @keyframes slideUpBlur {
 0% {
@@ -106,15 +109,16 @@ border-radius: 2px;
 
     <!-- Desktop links -->
     <div class="hidden md:flex items-center gap-8">
-      <a href="/pricing" class="text-sm font-medium text-gray-600 hover:text-black transition-colors">Pricing</a>
-      <a href="/services" class="text-sm font-medium text-gray-600 hover:text-black transition-colors">Digital Services</a>
-      <a href="/about" class="text-sm font-medium text-gray-600 hover:text-black transition-colors">About</a>
+      <a href="#how-it-works" class="text-sm font-medium text-gray-600 hover:text-black transition-colors">How it works</a>
+      <a href="#advertise" class="text-sm font-medium text-gray-600 hover:text-black transition-colors">Advertise</a>
+      <a href="#services" class="text-sm font-medium text-gray-600 hover:text-black transition-colors">Digital Services</a>
+      <a href="#about" class="text-sm font-medium text-gray-600 hover:text-black transition-colors">About</a>
     </div>
 
     <!-- Right actions: CTA + Mobile toggle -->
     <div class="flex items-center gap-3 z-[501] relative">
       <a href="/contact" class="flex items-center gap-2 bg-black text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full text-xs md:text-sm font-medium hover:bg-gray-800 transition-all hover:pr-6 duration-300 group">
-        Start Growing
+        Get in touch
         <iconify-icon icon="solar:arrow-right-linear" width="16" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
       </a>
 
@@ -128,9 +132,10 @@ border-radius: 2px;
 
 <!-- Mobile Full Screen Menu Overlay -->
 <div id="mobile-menu" class="fixed inset-0 z-[300] flex flex-col justify-center items-center gap-8 bg-white opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" aria-hidden="true">
-  <a href="/about" class="text-3xl font-medium tracking-tight text-gray-900 hover:text-gray-600 transition-colors">About</a>
-  <a href="/services" class="text-3xl font-medium tracking-tight text-gray-900 hover:text-gray-600 transition-colors">Digital Services</a>
-  <a href="/pricing" class="text-3xl font-medium tracking-tight text-gray-900 hover:text-gray-600 transition-colors">Pricing</a>
+  <a href="#about" class="text-3xl font-medium tracking-tight text-gray-900 hover:text-gray-600 transition-colors">About</a>
+  <a href="#how-it-works" class="text-3xl font-medium tracking-tight text-gray-900 hover:text-gray-600 transition-colors">How it works</a>
+  <a href="#advertise" class="text-3xl font-medium tracking-tight text-gray-900 hover:text-gray-600 transition-colors">Advertise</a>
+  <a href="#services" class="text-3xl font-medium tracking-tight text-gray-900 hover:text-gray-600 transition-colors">Digital Services</a>
 </div>
 
 <script>
@@ -171,12 +176,17 @@ border-radius: 2px;
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && isOpen()) closeMenu();
     });
+
+    menu.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
   })();
 </script>
 
 
 
-    <!-- Main Hero -->
     <main class="md:px-12 lg:py-20 max-w-7xl mr-auto ml-auto pt-12 pr-6 pb-12 pl-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             
@@ -196,41 +206,41 @@ border-radius: 2px;
                             <iconify-icon icon="logos:tiktok-icon" width="14"></iconify-icon>
                         </div>
                     </div>
-                    <span class="text-sm font-medium text-gray-500 tracking-wide uppercase">Trusted by clinics and growing brands</span>
+                    <span class="text-sm font-medium text-gray-500 tracking-wide uppercase">In-clinic advertising · Early stage · Selangor, Malaysia</span>
                 </div>
 
                 <!-- Headline -->
                 <h1 class="animate-enter delay-200 text-6xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight text-gray-900">
-                    Marketing that <br>
-                    <span class="font-playfair italic font-medium">moves patients to action.</span>
+                    Everyone visits a clinic. <br>
+                    <span class="font-playfair italic font-medium">Not everyone ignores the screen.</span>
                 </h1>
 
                 <!-- Subheadline -->
                 <p class="animate-enter delay-300 text-lg md:text-xl text-gray-500 leading-relaxed max-w-md">
-                    We help healthcare professionals and local businesses grow with geo-targeted clinic screen marketing, creative production, and measurable performance reporting.
+                    Surge Media places your brand on display screens in GP clinic waiting rooms — where everyday Malaysians sit, wait, and have nothing else to look at.
                 </p>
 
                 <!-- Actions -->
                 <div class="animate-enter delay-400 flex flex-col sm:flex-row gap-4 items-start sm:items-center mt-2">
                     <button class="bg-black text-white text-base px-8 py-4 rounded-full font-medium hover:bg-gray-800 transition-all hover:scale-105 active:scale-95 flex items-center gap-3 shadow-xl shadow-gray-200">
-                        Book a Marketing Call
-                        <iconify-icon icon="solar:calendar-add-linear" width="20"></iconify-icon>
+                        Advertise with us
+                        <iconify-icon icon="solar:arrow-right-linear" width="20"></iconify-icon>
                     </button>
                     <button class="px-6 py-4 text-gray-600 font-medium hover:text-black flex items-center gap-2 transition-colors">
                         <iconify-icon icon="solar:play-circle-linear" width="24"></iconify-icon>
-                        View Marketing Samples
+                        How it works
                     </button>
                 </div>
 
-                <!-- Stats Decoration -->
+                <!-- Stats -->
                 <div class="animate-enter delay-500 mt-8 pt-8 border-t border-gray-200 flex gap-12">
                     <div>
-                        <p class="text-3xl font-bold tracking-tight">3,120+</p>
-                        <p class="text-sm text-gray-500 mt-1">Monthly screen plays</p>
+                        <p class="text-3xl font-bold tracking-tight">2.7 visits</p>
+                        <p class="text-sm text-gray-500 mt-1">to a GP per Malaysian per year</p>
                     </div>
                     <div>
-                        <p class="text-3xl font-bold tracking-tight">7 Days</p>
-                        <p class="text-sm text-gray-500 mt-1">Typical time to go live</p>
+                        <p class="text-3xl font-bold tracking-tight">68.2M</p>
+                        <p class="text-sm text-gray-500 mt-1">patient arrivals at MOH facilities in 2023</p>
                     </div>
                 </div>
             </div>
@@ -419,7 +429,7 @@ border-radius: 2px;
         }
     </script>
 
-<section class="w-full max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32 relative z-10">
+<section id="services" class="w-full max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32 relative z-10">
     <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-16 animate-enter">
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-gray-900 leading-[0.95]">
             Full-service 
@@ -437,8 +447,8 @@ border-radius: 2px;
             <div class="w-12 h-12 bg-gray-900 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg shadow-gray-900/10">
                 <iconify-icon icon="solar:camera-linear" width="24"></iconify-icon>
             </div>
-            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">Clinic Screen Marketing</h3>
-            <p class="text-gray-600 leading-relaxed text-sm">10-second, geo-targeted placements in GP clinics to reach patients during high-attention waiting time.</p>
+            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">In-Clinic DOOH Advertising</h3>
+            <p class="text-gray-600 leading-relaxed text-sm">Advertising slots on GP clinic waiting room display screens. A captive general audience, 15–25 minutes of dwell time, and nothing competing for their attention.</p>
         </div>
 
         <!-- Service 2 -->
@@ -446,8 +456,8 @@ border-radius: 2px;
             <div class="w-12 h-12 bg-gray-900 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg shadow-gray-900/10">
                 <iconify-icon icon="solar:chart-2-linear" width="24"></iconify-icon>
             </div>
-            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">Creative & Video Production</h3>
-            <p class="text-gray-600 leading-relaxed text-sm">Fast-turn marketing creatives including 10-second videos, social content, and landing-page assets.</p>
+            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">Social Media & Content</h3>
+            <p class="text-gray-600 leading-relaxed text-sm">Social media management, content creation, and Reels production for clinics and health brands. Consistent presence, professionally handled.</p>
         </div>
 
         <!-- Service 3 -->
@@ -455,21 +465,107 @@ border-radius: 2px;
             <div class="w-12 h-12 bg-gray-900 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-lg shadow-gray-900/10">
                 <iconify-icon icon="solar:users-group-rounded-linear" width="24"></iconify-icon>
             </div>
-            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">Tracking & Reporting</h3>
-            <p class="text-gray-600 leading-relaxed text-sm">QR-based performance tracking and monthly reports so your marketing decisions stay evidence-led.</p>
+            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">Google Review Management</h3>
+            <p class="text-gray-600 leading-relaxed text-sm">Google Business Profile optimisation, review response management, and reputation strategy — so new patients find you and trust you before they arrive.</p>
         </div>
     </div>
-</section><section class="w-full max-w-7xl mx-auto px-6 md:px-12 pb-32">
+</section>
+
+<!-- GP Visit Statistics Band -->
+<style>
+  .stat-tooltip-wrap { position: relative; display: inline-flex; align-items: center; gap: 5px; }
+  .stat-tooltip-icon {
+    width: 15px; height: 15px; border-radius: 50%;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.5);
+    cursor: default; flex-shrink: 0; line-height: 1;
+  }
+  .stat-tooltip {
+    display: none; position: absolute; bottom: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%);
+    background: #fff; color: #111; border-radius: 8px;
+    padding: 10px 13px; width: 230px;
+    font-size: 11px; line-height: 1.55; font-weight: 400;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+    z-index: 50; pointer-events: none;
+  }
+  .stat-tooltip::after {
+    content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: #fff;
+  }
+  .stat-tooltip-wrap:hover .stat-tooltip { display: block; }
+  .stat-source-label { font-weight: 600; color: #333; display: block; margin-bottom: 2px; }
+</style>
+
+<section class="w-full max-w-7xl mx-auto px-6 md:px-12 pb-16">
+  <div class="bg-gray-900 rounded-[2rem] px-10 md:px-16 py-12 grid grid-cols-1 md:grid-cols-3 gap-12 text-white">
+
+    <!-- Stat 1 -->
+    <div>
+      <div class="flex items-center gap-2 mb-4">
+        <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">GP visits per Malaysian per year</p>
+        <div class="stat-tooltip-wrap">
+          <span class="stat-tooltip-icon">i</span>
+          <div class="stat-tooltip">
+            <span class="stat-source-label">Source</span>
+            National Health Morbidity Survey (NHMS) 2019, Institute for Public Health, Ministry of Health Malaysia
+          </div>
+        </div>
+      </div>
+      <p class="text-6xl font-semibold tracking-tight leading-none mb-5">2.7</p>
+      <p class="text-base font-medium text-white mb-2">visits to a doctor, per person, per year</p>
+      <p class="text-sm text-gray-400 leading-relaxed">That's nearly 3 clinic visits for every Malaysian every year — each one a waiting room, each one a screen in front of them with nothing competing for their attention.</p>
+    </div>
+
+    <!-- Stat 2 -->
+    <div>
+      <div class="flex items-center gap-2 mb-4">
+        <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">Patient arrivals at MOH facilities</p>
+        <div class="stat-tooltip-wrap">
+          <span class="stat-tooltip-icon">i</span>
+          <div class="stat-tooltip">
+            <span class="stat-source-label">Source</span>
+            MOH Health Facts 2024, Ministry of Health Malaysia. Covers inpatient, outpatient, and day care arrivals across all MOH facilities in 2023.
+          </div>
+        </div>
+      </div>
+      <p class="text-6xl font-semibold tracking-tight leading-none mb-5">68.2M</p>
+      <p class="text-base font-medium text-white mb-2">patient arrivals in Malaysia in 2023</p>
+      <p class="text-sm text-gray-400 leading-relaxed">68.2 million visits to Ministry of Health facilities in a single year — up 18% from 2020. The clinic audience is not a niche. It is the Malaysian general public.</p>
+    </div>
+
+    <!-- Stat 3 -->
+    <div>
+      <div class="flex items-center gap-2 mb-4">
+        <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">Time spent waiting per visit</p>
+        <div class="stat-tooltip-wrap">
+          <span class="stat-tooltip-icon">i</span>
+          <div class="stat-tooltip">
+            <span class="stat-source-label">Source</span>
+            General practice dwell time benchmarks for Malaysian GP clinics. Waiting time varies by clinic volume and time of day.
+          </div>
+        </div>
+      </div>
+      <p class="text-6xl font-semibold tracking-tight leading-none mb-5">15–25<span class="text-3xl"> min</span></p>
+      <p class="text-base font-medium text-white mb-2">in the waiting room before every consultation</p>
+      <p class="text-sm text-gray-400 leading-relaxed">15 to 25 minutes of uninterrupted time. One screen in the room. No algorithm deciding whether to show your ad. No skip button. Just your brand and an attentive audience.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="advertise" class="w-full max-w-7xl mx-auto px-6 md:px-12 pb-32">
     
     <!-- Case 1: Glowhaus -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center mb-32 animate-enter delay-200">
         <div class="order-2 lg:order-1 flex flex-col items-start">
             <span class="inline-block bg-[#e33c1d] text-white px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider mb-8">Client results</span>
             <h2 class="" leading-[0.95]="" mb-6"="">
-                Growing a dental clinic with <span class="font-playfair italic font-medium">waiting-room marketing</span>
+                Reaching dental patients with <span class="font-playfair italic font-medium">waiting-room advertising</span>
             </h2>
             <p class="text-gray-500 text-lg leading-relaxed mb-10 max-w-md">
-                A dental clinic needed stronger local visibility and appointment flow. We launched geo-targeted clinic placements with a QR-led booking journey.
+                A dental clinic wanted stronger local visibility and more appointment bookings. We launched geo-targeted clinic screen placements with a QR-led booking journey.
             </p>
             <div class="grid grid-cols-2 gap-12 border-t border-gray-900/10 pt-8 w-full max-w-md">
                 <div>
@@ -509,10 +605,10 @@ border-radius: 2px;
         <div class="flex flex-col items-start">
             <span class="inline-block bg-[#e33c1d] text-white px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider mb-8">Client results</span>
             <h2 class="text-4xl md:text-6xl font-semibold tracking-tight text-gray-900 leading-[0.95] mb-6">
-                Growing a nearby business with <span class="font-playfair italic font-medium">location marketing</span>
+                Driving foot traffic from nearby clinics with <span class="font-playfair italic font-medium">proximity advertising</span>
             </h2>
             <p class="text-gray-500 text-lg leading-relaxed mb-10 max-w-md">
-                A local lifestyle business wanted consistent foot traffic from nearby clinics. We deployed proximity-focused messaging and a scan-to-action offer.
+                A local lifestyle business wanted consistent foot traffic from patients at nearby clinics. We deployed proximity-focused messaging and a scan-to-offer QR campaign.
             </p>
             <div class="grid grid-cols-2 gap-12 border-t border-gray-900/10 pt-8 w-full max-w-md">
                 <div class="">
@@ -528,12 +624,12 @@ border-radius: 2px;
             </div>
         </div>
     </div>
-</section><section class="w-full max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+</section><section id="how-it-works" class="w-full max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
     <div class="flex flex-col items-center text-center mb-20 animate-enter">
         <span class="bg-[#e33c1d] text-white px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider mb-6">How we work</span>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-gray-900 leading-[0.95] max-w-2xl">
-            A clear process for 
-            <span class="font-playfair italic font-medium">marketing growth</span>
+            A clear process from 
+            <span class="font-playfair italic font-medium">brief to live campaign</span>
         </h2>
     </div>
 
@@ -548,8 +644,8 @@ border-radius: 2px;
             <div class="w-20 h-20 bg-white rounded-[2rem] flex items-center justify-center shadow-lg shadow-gray-900/5 mb-8 group-hover:scale-110 transition-transform duration-500">
                 <iconify-icon icon="solar:target-linear" width="32" class="text-gray-900"></iconify-icon>
             </div>
-            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">Define Goals</h3>
-            <p class="text-gray-600 text-sm leading-relaxed max-w-xs">We align on audience, locations, and business outcomes before launch.</p>
+            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">Brief & Define</h3>
+            <p class="text-gray-600 text-sm leading-relaxed max-w-xs">We align on your audience, target clinic locations, campaign goals, and content before anything goes live.</p>
         </div>
 
         <!-- Step 2 -->
@@ -557,8 +653,8 @@ border-radius: 2px;
             <div class="w-20 h-20 bg-black text-white rounded-[2rem] flex items-center justify-center shadow-lg shadow-gray-900/20 mb-8 group-hover:scale-110 transition-transform duration-500">
                 <iconify-icon icon="solar:smartphone-linear" width="32"></iconify-icon>
             </div>
-            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">Launch in 7 Days</h3>
-            <p class="text-gray-600 text-sm leading-relaxed max-w-xs">We produce creative, confirm placement, and activate your campaign fast.</p>
+            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">Review & Go Live</h3>
+            <p class="text-gray-600 text-sm leading-relaxed max-w-xs">We review your creative for compliance, confirm clinic placements, and activate your campaign within days.</p>
         </div>
 
         <!-- Step 3 -->
@@ -566,8 +662,8 @@ border-radius: 2px;
             <div class="w-20 h-20 bg-white rounded-[2rem] flex items-center justify-center shadow-lg shadow-gray-900/5 mb-8 group-hover:scale-110 transition-transform duration-500">
                 <iconify-icon icon="solar:graph-new-linear" width="32" class="text-gray-900"></iconify-icon>
             </div>
-            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">Measure &amp; Improve</h3>
-            <p class="text-gray-600 text-sm leading-relaxed max-w-xs">We review QR performance monthly and refine messaging for stronger outcomes.</p>
+            <h3 class="text-xl font-semibold tracking-tight text-gray-900 mb-3">Report & Refine</h3>
+            <p class="text-gray-600 text-sm leading-relaxed max-w-xs">Monthly reports with QR scan data and reach metrics. We refine targeting and messaging based on what the numbers show.</p>
         </div>
     </div>
 </section><section class="w-full max-w-7xl mx-auto px-6 md:px-12 pb-32">
@@ -578,12 +674,12 @@ border-radius: 2px;
                 <iconify-icon icon="solar:quote-up-bold" width="24"></iconify-icon>
             </div>
             <h3 class="text-3xl md:text-4xl font-medium tracking-tight text-gray-900 leading-tight mb-8 relative z-10">
-                Surge Media helped us turn patient wait time into measurable marketing outcomes and more qualified walk-ins.
+                Surge Media put our brand in front of clinic patients who had nothing else to look at. The QR scan rate was better than anything we'd seen on social.
             </h3>
             <div class="flex items-center gap-3 mt-auto">
                 <div>
-                    <p class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Elena Chen</p>
-                    <p class="text-sm text-gray-500">Clinic Marketing Partner</p>
+                    <p class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Marketing Manager</p>
+                    <p class="text-sm text-gray-500">Malaysian health supplement brand</p>
                 </div>
             </div>
         </div>
@@ -601,37 +697,37 @@ border-radius: 2px;
     <div class="flex flex-col items-center text-center mb-16 animate-enter">
         <span class="bg-[#e33c1d] text-white px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider mb-6">The difference</span>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-gray-900 leading-[0.95]">
-            Why choose Surge Media 
-            over <span class="font-playfair italic font-medium">everyone</span> else?
+            Why in-clinic advertising 
+            over <span class="font-playfair italic font-medium">everything</span> else?
         </h2>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 animate-enter delay-100">
-        <!-- Other Agencies -->
+        <!-- Other Channels -->
         <div class="bg-gray-100/50 rounded-[2rem] p-8 md:p-12">
             <h3 class="text-2xl font-semibold text-gray-400 mb-8 flex items-center gap-3">
-                Other Agencies
+                Other ad channels
             </h3>
             <ul class="space-y-5">
                 <li class="flex items-start gap-4 text-gray-500">
                     <iconify-icon icon="solar:close-circle-bold" width="20" class="mt-0.5 text-gray-300"></iconify-icon>
-                    <span>Generic content templates</span>
+                    <span>Scrolled past in under 2 seconds</span>
                 </li>
                 <li class="flex items-start gap-4 text-gray-500">
                     <iconify-icon icon="solar:close-circle-bold" width="20" class="mt-0.5 text-gray-300"></iconify-icon>
-                    <span>Monthly reporting only</span>
+                    <span>Competing with dozens of other ads</span>
                 </li>
                 <li class="flex items-start gap-4 text-gray-500">
                     <iconify-icon icon="solar:close-circle-bold" width="20" class="mt-0.5 text-gray-300"></iconify-icon>
-                    <span>Separate teams for different platforms</span>
+                    <span>Audience can skip, close, or block</span>
                 </li>
                 <li class="flex items-start gap-4 text-gray-500">
                     <iconify-icon icon="solar:close-circle-bold" width="20" class="mt-0.5 text-gray-300"></iconify-icon>
-                    <span>Long-term contracts required</span>
+                    <span>No context around why they're seeing it</span>
                 </li>
                 <li class="flex items-start gap-4 text-gray-500">
                     <iconify-icon icon="solar:close-circle-bold" width="20" class="mt-0.5 text-gray-300"></iconify-icon>
-                    <span>One-size-fits-all approach</span>
+                    <span>Costs rise as competition increases</span>
                 </li>
             </ul>
         </div>
@@ -646,23 +742,23 @@ border-radius: 2px;
             <ul class="space-y-5">
                 <li class="flex items-start gap-4 text-gray-900 font-medium">
                     <iconify-icon icon="solar:check-circle-bold" width="20" class="mt-0.5 text-black"></iconify-icon>
-                    <span>Healthcare-aware and general-market marketing strategy</span>
+                    <span>15–25 minutes of uninterrupted attention per patient</span>
                 </li>
                 <li class="flex items-start gap-4 text-gray-900 font-medium">
                     <iconify-icon icon="solar:check-circle-bold" width="20" class="mt-0.5 text-black"></iconify-icon>
-                    <span>QR tracking with transparent reporting</span>
+                    <span>The only ad on the screen — no competition</span>
                 </li>
                 <li class="flex items-start gap-4 text-gray-900 font-medium">
                     <iconify-icon icon="solar:check-circle-bold" width="20" class="mt-0.5 text-black"></iconify-icon>
-                    <span>Geo-targeted clinic placement options</span>
+                    <span>No skip button, no scroll, no algorithm</span>
                 </li>
                 <li class="flex items-start gap-4 text-gray-900 font-medium">
                     <iconify-icon icon="solar:check-circle-bold" width="20" class="mt-0.5 text-black"></iconify-icon>
-                    <span>Predictable monthly marketing plans</span>
+                    <span>QR tracking with transparent monthly reporting</span>
                 </li>
                 <li class="flex items-start gap-4 text-gray-900 font-medium">
                     <iconify-icon icon="solar:check-circle-bold" width="20" class="mt-0.5 text-black"></iconify-icon>
-                    <span>Built around your local growth goals</span>
+                    <span>Geo-targeted to specific clinics and zones</span>
                 </li>
             </ul>
         </div>
@@ -670,7 +766,7 @@ border-radius: 2px;
 
     <!-- Mini Brand Strip -->
     <div class="mt-16 text-center">
-        <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-6">Brands we've helped grow through marketing</p>
+        <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-6">Brands that have advertised through our clinic network</p>
         <div class="flex justify-center items-center gap-8 md:gap-16 opacity-40 grayscale">
             <iconify-icon icon="simple-icons:sony" width="60"></iconify-icon>
             <iconify-icon icon="simple-icons:samsung" width="80"></iconify-icon>
@@ -678,7 +774,7 @@ border-radius: 2px;
             <iconify-icon icon="simple-icons:braun" width="60"></iconify-icon>
         </div>
     </div>
-</section><section class="w-full max-w-7xl mx-auto px-6 md:px-12 py-24">
+</section><section id="about" class="w-full max-w-7xl mx-auto px-6 md:px-12 py-24">
     <div class="flex flex-col items-center text-center mb-16 animate-enter">
         <span class="bg-[#e33c1d] text-white px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider mb-6">Our team</span>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-gray-900 leading-[0.95]">
@@ -910,65 +1006,65 @@ border-radius: 2px;
         <!-- Question 1 -->
         <details class="group bg-[#efeae5] rounded-2xl overflow-hidden transition-all duration-300 open:pb-4">
             <summary class="flex justify-between items-center p-6 cursor-pointer list-none font-medium text-gray-900 hover:text-black">
-                How quickly will we see results?
+                What types of brands can advertise on your clinic screens?
                 <div class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-open:rotate-45 transition-transform duration-300">
                     <iconify-icon icon="solar:add-linear" width="20"></iconify-icon>
                 </div>
             </summary>
             <div class="px-6 text-sm text-gray-600 leading-relaxed max-w-xl">
-                Most clients start seeing strong visibility in the first month. Stronger conversion outcomes typically build across months two and three.
+                Any brand targeting the general Malaysian population. Our audience is everyday Malaysians visiting GP clinics — not a niche health audience. We've placed campaigns for health supplements, insurance, lifestyle brands, and local businesses. All content is reviewed against Malaysian advertising guidelines before going live.
             </div>
         </details>
 
         <!-- Question 2 -->
         <details class="group bg-[#efeae5] rounded-2xl overflow-hidden transition-all duration-300 open:pb-4">
             <summary class="flex justify-between items-center p-6 cursor-pointer list-none font-medium text-gray-900 hover:text-black">
-                What platforms do you manage?
+                How do you measure campaign performance?
                 <div class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-open:rotate-45 transition-transform duration-300">
                     <iconify-icon icon="solar:add-linear" width="20"></iconify-icon>
                 </div>
             </summary>
             <div class="px-6 text-sm text-gray-600 leading-relaxed max-w-xl">
-                We run clinic screen marketing plus supporting digital channels, including social and landing-page workflows for integrated campaigns.
+                We use QR codes on your creative to track anonymous, aggregate engagement — scan rates by clinic location and time window. Monthly performance reports cover estimated reach and QR scan data. No individual patient data is collected or stored.
             </div>
         </details>
 
         <!-- Question 3 -->
         <details class="group bg-[#efeae5] rounded-2xl overflow-hidden transition-all duration-300 open:pb-4">
             <summary class="flex justify-between items-center p-6 cursor-pointer list-none font-medium text-gray-900 hover:text-black">
-                Do you work with our industry?
+                Do you also offer digital marketing services?
                 <div class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-open:rotate-45 transition-transform duration-300">
                     <iconify-icon icon="solar:add-linear" width="20"></iconify-icon>
                 </div>
             </summary>
             <div class="px-6 text-sm text-gray-600 leading-relaxed max-w-xl">
-                Yes. We work with healthcare professionals and general-market businesses that want clear, local, measurable marketing growth.
+                Yes. Alongside in-clinic advertising, Surge Media offers social media management, content creation, Google review management, and branding — primarily for clinics and health brands wanting a complete marketing presence.
             </div>
         </details>
 
         <!-- Question 4 -->
         <details class="group bg-[#efeae5] rounded-2xl overflow-hidden transition-all duration-300 open:pb-4">
             <summary class="flex justify-between items-center p-6 cursor-pointer list-none font-medium text-gray-900 hover:text-black">
-                What if we want to cancel?
+                What are the minimum contract terms?
                 <div class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-open:rotate-45 transition-transform duration-300">
                     <iconify-icon icon="solar:add-linear" width="20"></iconify-icon>
                 </div>
             </summary>
             <div class="px-6 text-sm text-gray-600 leading-relaxed max-w-xl">
-                We offer flexible month-to-month contracts. We believe in earning your business every single month through results, not locking you in with paperwork.
+                Our starter package runs on a 3-month minimum. The Impact package is 6 months. Tailored packages are typically 12-month partnerships. We're a startup and believe in earning your business — we'll always be transparent about what you're committing to.
             </div>
         </details>
         
         <!-- Question 5 -->
         <details class="group bg-[#efeae5] rounded-2xl overflow-hidden transition-all duration-300 open:pb-4">
             <summary class="flex justify-between items-center p-6 cursor-pointer list-none font-medium text-gray-900 hover:text-black">
-                How involved do we need to be?
+                Where is the clinic network located?
                 <div class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-open:rotate-45 transition-transform duration-300">
                     <iconify-icon icon="solar:add-linear" width="20"></iconify-icon>
                 </div>
             </summary>
             <div class="px-6 text-sm text-gray-600 leading-relaxed max-w-xl">
-                As involved as you like. We have a streamlined approval process, but we're fully capable of running the show autonomously once we align on the initial strategy.
+                We're currently live in Selangor and growing. If your campaign requires specific zones or clinic types, get in touch and we'll tell you what's available and what's coming.
             </div>
         </details>
     </div>
@@ -984,10 +1080,10 @@ border-radius: 2px;
             <div class="mt-20">
                 <span class="bg-white/50 border border-white/50 text-gray-900 px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider mb-6 inline-block">Get started</span>
                 <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 leading-[0.95] mb-8">
-                    Start your next 
-                    <span class="font-playfair italic font-medium">marketing campaign.</span>
+                    Put your brand in the room 
+                    <span class="font-playfair italic font-medium">where nobody looks away.</span>
                 </h2>
-                <p class="text-gray-500 mb-10 max-w-sm">Book a free 30-minute marketing call and we will map the best plan for your audience and goals.</p>
+                <p class="text-gray-500 mb-10 max-w-sm">Book a free 30-minute call and we'll walk you through the clinic network, available slots, and what works for your brand.</p>
                 <button class="bg-black text-white px-8 py-4 rounded-full font-medium hover:bg-gray-800 transition-all hover:scale-105 active:scale-95 flex items-center gap-3 shadow-xl">
                     Book a call
                 </button>
@@ -1044,9 +1140,9 @@ border-radius: 2px;
                 <span class="font-bold text-lg tracking-tight">Surge Media</span>
             </div>
             <h4 class="text-xl font-semibold tracking-tight text-gray-900 leading-tight mb-4">
-                Marketing that drives <span class="font-playfair italic font-medium">real</span> results.
+                In-clinic advertising for the <span class="font-playfair italic font-medium">Malaysian market.</span>
             </h4>
-            <p class="text-xs text-gray-500 mb-6">Built for healthcare professionals, local businesses, and growing brands.</p>
+            <p class="text-xs text-gray-500 mb-6">In-clinic DOOH advertising and digital marketing services. Based in Selangor, Malaysia. Part of the Bitnovate Labs group.</p>
             <div class="flex gap-3">
                 <a href="#" class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:bg-gray-800 transition-colors">
                     <iconify-icon icon="simple-icons:x" width="16"></iconify-icon>
@@ -1083,7 +1179,7 @@ border-radius: 2px;
     </div>
     
     <div class="mt-16 pt-8 border-t border-gray-900/5 flex justify-between text-[10px] text-gray-400 font-medium">
-        <span>© 2026 Surge Media. All rights reserved.</span>
-        <span>Designed with intention.</span>
+        <span>© 2026 Surge Media Sdn. Bhd. All rights reserved.</span>
+        <span>Part of the Bitnovate Labs group.</span>
     </div>
 </footer></body></html>

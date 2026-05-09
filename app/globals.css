@@ -1,12 +1,145 @@
 @import "tailwindcss";
-@source "../public/social-media-10.html";
+/* Global styles for App Router */
 
 html,
 body {
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
+  font-family: var(--font-manrope), sans-serif;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.font-playfair {
+  font-family: var(--font-playfair), serif;
+}
+
+@keyframes slideUpBlur {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes sonarWave {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes auraPulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-enter {
+  animation: slideUpBlur 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+.sonar-ring {
+  animation: sonarWave 2s infinite cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-active {
+  animation: slideUpBlur 0.4s ease both;
+}
+
+.faq-item {
+  transition: transform 260ms ease, box-shadow 260ms ease;
+}
+
+.faq-item[open] {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 280ms ease, opacity 220ms ease;
+}
+
+.faq-item[open] .faq-answer {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.faq-answer > div {
+  overflow: hidden;
+}
+
+.float-on-hover:hover {
+  animation: subtleFloat 1.8s ease-in-out infinite;
+}
+
+.aura-pulse {
+  animation: auraPulse 4.5s ease-in-out infinite;
+}
+
+.aura-gradient-animated {
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* Stats band: gentle idle motion per card (staggered via nth-child) */
+@keyframes statCardIdle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.stats-card-float {
+  animation: statCardIdle 5.5s ease-in-out infinite;
 }
