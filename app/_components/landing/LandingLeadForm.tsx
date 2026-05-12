@@ -72,13 +72,15 @@ export function LandingLeadForm({ config }: Props) {
         </div>
       ) : (
         <>
-          <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">{config.formEyebrow}</p>
-          <h2 className="text-2xl md:text-3xl font-black tracking-tight text-gray-900 leading-tight mb-2">
-            {config.formTitle}
-          </h2>
-          <p className="text-sm text-gray-600 mb-8 leading-relaxed">{config.formHint}</p>
+          <div className="text-center md:text-left">
+            <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">{config.formEyebrow}</p>
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight text-gray-900 leading-tight mb-2">
+              {config.formTitle}
+            </h2>
+            <p className="text-sm text-gray-600 mb-8 leading-relaxed">{config.formHint}</p>
+          </div>
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form className="space-y-4 text-left" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="lp-name" className="block text-xs font-semibold text-gray-800 mb-1.5">
                 Name
