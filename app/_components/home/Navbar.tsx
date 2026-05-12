@@ -39,7 +39,8 @@ export function Navbar() {
     <>
       <nav className="w-full px-6 pt-6 pb-6 md:px-12 relative z-[500] animate-enter">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="/" className="leading-none" aria-label="Go to homepage">
+          <Link href="/" className="leading-none flex items-center gap-1 md:gap-1.5" aria-label="Go to homepage">
+            <img src="/SurgeMedia-logo.png" alt="" className="h-8 w-8 md:h-10 md:w-10 shrink-0 object-contain" aria-hidden />
             <img src="/SurgeMedia-brand.png" alt="Surge Media" className="h-8 md:h-10 w-auto" />
           </Link>
 

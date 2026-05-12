@@ -507,7 +507,13 @@ export function ComparisonSection() {
         </div>
 
         <div className="group animate-enter delay-200 relative overflow-hidden rounded-[2rem] bg-[#efeae5] p-8 md:p-10 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)]">
-          <h3 className="mb-8 leading-none">
+          <h3 className="mb-8 flex items-center gap-1 md:gap-1.5 leading-none">
+            <img
+              src="/SurgeMedia-logo.png"
+              alt=""
+              className="h-8 w-8 md:h-10 md:w-10 shrink-0 object-contain"
+              aria-hidden
+            />
             <img
               src="/SurgeMedia-brand.png"
               alt="Surge Media"
@@ -848,7 +854,13 @@ export function FooterSection({
 
       <div className="border-t border-gray-900/10 pt-16 flex flex-col md:flex-row justify-between gap-12 md:gap-24 animate-enter delay-200">
         <div className="max-w-xs">
-          <Link href="/" className="inline-block mb-6 cursor-pointer">
+          <Link href="/" className="inline-flex items-center gap-1 md:gap-1.5 mb-6 cursor-pointer">
+            <img
+              src="/SurgeMedia-logo.png"
+              alt=""
+              className="h-8 w-8 md:h-10 md:w-10 shrink-0 object-contain"
+              aria-hidden
+            />
             <img
               src="/SurgeMedia-brand.png"
               alt="Surge Media"
