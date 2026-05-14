@@ -723,14 +723,11 @@ export function AboutSection({ centerCards = false }: AboutSectionProps) {
         aria-labelledby="about-co-founders-heading"
       >
         <div className="flex flex-col items-center text-center mb-10 md:mb-12">
-          <span className="bg-[#e33c1d] text-white px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider mb-6">
-            Leadership
-          </span>
           <h3
             id="about-co-founders-heading"
             className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-gray-900 leading-[0.95] max-w-2xl"
           >
-            Co-founders
+            Meet our co-founders
           </h3>
         </div>
 
@@ -745,12 +742,7 @@ export function AboutSection({ centerCards = false }: AboutSectionProps) {
                 sizes="(max-width: 640px) 100vw, 320px"
               />
             </div>
-            <figcaption className="mt-4">
-              <span className="block text-lg font-black tracking-tight text-gray-900">Timothy Lim</span>
-              <span className="mt-1 block text-sm font-semibold uppercase tracking-wide text-gray-500">
-                Co-founder
-              </span>
-            </figcaption>
+            <figcaption className="mt-4 text-lg font-black tracking-tight text-gray-900">Timothy Lim</figcaption>
           </figure>
           <figure className="flex flex-col items-center text-center">
             <div className="relative w-full max-w-[320px] aspect-[3/4] overflow-hidden rounded-[2rem] border border-gray-900/[0.08] bg-gray-100 shadow-[0_12px_40px_rgba(0,0,0,0.08)]">
@@ -762,12 +754,7 @@ export function AboutSection({ centerCards = false }: AboutSectionProps) {
                 sizes="(max-width: 640px) 100vw, 320px"
               />
             </div>
-            <figcaption className="mt-4">
-              <span className="block text-lg font-black tracking-tight text-gray-900">David Chua</span>
-              <span className="mt-1 block text-sm font-semibold uppercase tracking-wide text-gray-500">
-                Co-founder
-              </span>
-            </figcaption>
+            <figcaption className="mt-4 text-lg font-black tracking-tight text-gray-900">David Chua</figcaption>
           </figure>
         </div>
       </section>
