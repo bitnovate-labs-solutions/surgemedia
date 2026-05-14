@@ -75,13 +75,14 @@ export default function ContactPage() {
           <p className="text-gray-500 mt-6 max-w-3xl text-base md:text-lg leading-relaxed">
             Whether you want to advertise in clinics, need digital marketing
             support, or just want to understand what we do — get in touch.
-            We&apos;re a small team and we respond personally.
+            We&apos;re a growing team and we respond personally.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-6 lg:gap-8 animate-enter delay-100">
           <section className="relative overflow-hidden rounded-[2rem] border border-gray-900/[0.08] bg-white/90 backdrop-blur-sm p-8 md:p-10 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
             <form
+              id="contact-form"
               className={
                 submitState === "success"
                   ? "pointer-events-none space-y-5 select-none"
@@ -293,12 +294,12 @@ export default function ContactPage() {
                 Prefer WhatsApp?
               </h2>
               <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-8">
-                We&apos;re a small team. WhatsApp is often the fastest way to
-                reach us. Mon–Fri, 9am–6pm MYT.
+                We&apos;re a growing team. WhatsApp is often the fastest way to
+                reach us. <br /> Monday – Friday, 9:00am – 6:00pm MYT
               </p>
 
               <a
-                href="https://wa.me/60123456789"
+                href="https://wa.me/601161971690"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex w-full justify-center items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-xl text-sm font-semibold hover:bg-[#1eb85a] transition-colors shadow-[0_8px_24px_rgba(37,211,102,0.32)]"
@@ -342,10 +343,10 @@ export default function ContactPage() {
                       Phone
                     </p>
                     <a
-                      href="tel:+60123456789"
+                      href="tel:+601161971690"
                       className="text-gray-900 hover:text-black"
                     >
-                      +60 12-345 6789
+                      +6011 6197 1690
                     </a>
                   </div>
                 </div>

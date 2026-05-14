@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 export type FooterSectionProps = {
@@ -717,6 +718,60 @@ export function AboutSection({ centerCards = false }: AboutSectionProps) {
         </div>
       </section>
 
+      <section
+        className="animate-enter delay-400 border-t border-gray-900/5 pt-16 md:pt-20"
+        aria-labelledby="about-co-founders-heading"
+      >
+        <div className="flex flex-col items-center text-center mb-10 md:mb-12">
+          <span className="bg-[#e33c1d] text-white px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider mb-6">
+            Leadership
+          </span>
+          <h3
+            id="about-co-founders-heading"
+            className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-gray-900 leading-[0.95] max-w-2xl"
+          >
+            Co-founders
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 lg:gap-12 max-w-4xl mx-auto">
+          <figure className="flex flex-col items-center text-center">
+            <div className="relative w-full max-w-[320px] aspect-[3/4] overflow-hidden rounded-[2rem] border border-gray-900/[0.08] bg-gray-100 shadow-[0_12px_40px_rgba(0,0,0,0.08)]">
+              <Image
+                src="/tl.png"
+                alt="Timothy Lim, co-founder at Surge Media"
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, 320px"
+              />
+            </div>
+            <figcaption className="mt-4">
+              <span className="block text-lg font-black tracking-tight text-gray-900">Timothy Lim</span>
+              <span className="mt-1 block text-sm font-semibold uppercase tracking-wide text-gray-500">
+                Co-founder
+              </span>
+            </figcaption>
+          </figure>
+          <figure className="flex flex-col items-center text-center">
+            <div className="relative w-full max-w-[320px] aspect-[3/4] overflow-hidden rounded-[2rem] border border-gray-900/[0.08] bg-gray-100 shadow-[0_12px_40px_rgba(0,0,0,0.08)]">
+              <Image
+                src="/jy.png"
+                alt="David Chua, co-founder at Surge Media"
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, 320px"
+              />
+            </div>
+            <figcaption className="mt-4">
+              <span className="block text-lg font-black tracking-tight text-gray-900">David Chua</span>
+              <span className="mt-1 block text-sm font-semibold uppercase tracking-wide text-gray-500">
+                Co-founder
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
     </section>
   );
 }
@@ -820,7 +875,23 @@ export function FooterSection({
                       <div className="w-8 h-8 rounded-full bg-gray-200" />
                       <div className="h-3 w-24 bg-gray-100 rounded-full" />
                     </div>
-                    <div className="w-full aspect-square bg-gray-100 rounded-2xl mb-2" />
+                    <div
+                      className="relative w-full aspect-square rounded-2xl overflow-hidden mb-2 border border-gray-900/15 shadow-md ring-1 ring-black/5"
+                      role="img"
+                      aria-label="This could be you"
+                    >
+                      <div
+                        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-[1.03]"
+                        style={{ backgroundImage: "url(/cta.jpeg)" }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/35 to-black/20" />
+                      <div className="relative z-10 flex h-full min-h-[8rem] items-center justify-center p-5 text-center">
+                        <p className="text-[1.45rem] sm:text-xl leading-[1.1] font-black tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]">
+                          This could be{" "}
+                          <span className="font-playfair italic font-medium text-[#ffb199]">you!</span>
+                        </p>
+                      </div>
+                    </div>
                     <div className="flex gap-2 mb-2">
                       <div className="w-8 h-8 rounded-full bg-[#e33c1d]/15 text-[#e33c1d] flex items-center justify-center">
                         <iconify-icon icon="solar:heart-bold" />

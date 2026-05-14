@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { analyzePresenceAudit } from "../../../lib/presenceAuditAnalysis";
 import { getSupabaseBrowserClient } from "../../../lib/supabaseClient";
 
 export function ToolsSection() {
@@ -19,13 +20,16 @@ export function ToolsSection() {
   const [contentPillars, setContentPillars] = useState("somewhat");
   const [reviewResponse, setReviewResponse] = useState("sometimes");
   const [ctaClarity, setCtaClarity] = useState("somewhat");
-  const [primaryGoal, setPrimaryGoal] = useState("awareness");
-  const [targetLocationClarity, setTargetLocationClarity] = useState("somewhat");
+  const [primaryGoal, setPrimaryGoal] = useState("somewhat");
+  const [targetLocationClarity, setTargetLocationClarity] =
+    useState("somewhat");
   const [profileCompleteness, setProfileCompleteness] = useState("partial");
   const [recentReviews, setRecentReviews] = useState("some");
   const [trackingSetup, setTrackingSetup] = useState("partial");
   const [showResult, setShowResult] = useState(false);
-  const [submitState, setSubmitState] = useState<"idle" | "saving" | "error">("idle");
+  const [submitState, setSubmitState] = useState<"idle" | "saving" | "error">(
+    "idle",
+  );
   const [isMounted, setIsMounted] = useState(false);
   const totalSteps = 14;
 
@@ -56,34 +60,55 @@ export function ToolsSection() {
     };
   }, [isModalOpen]);
 
-  const audit = useMemo(() => {
-    let score = 0;
+  const auditInsights = useMemo(
+    () =>
+      analyzePresenceAudit({
+        hasWebsite,
+        hasGoogleProfile,
+        postsPerWeek,
+        socialPlatforms,
+        profileOptimized,
+        contentPillars,
+        reviewResponse,
+        ctaClarity,
+        primaryGoal,
+        targetLocationClarity,
+        profileCompleteness,
+        recentReviews,
+        trackingSetup,
+      }),
+    [
+      contentPillars,
+      ctaClarity,
+      hasGoogleProfile,
+      hasWebsite,
+      postsPerWeek,
+      primaryGoal,
+      profileCompleteness,
+      profileOptimized,
+      recentReviews,
+      reviewResponse,
+      socialPlatforms,
+      targetLocationClarity,
+      trackingSetup,
+    ],
+  );
 
-    score += hasWebsite === "yes" ? 10 : 3;
-    score += hasGoogleProfile === "yes" ? 10 : 0;
-    score += postsPerWeek === "3plus" ? 10 : postsPerWeek === "1" ? 6 : 2;
-    score += socialPlatforms === "2plus" ? 8 : socialPlatforms === "1" ? 5 : 1;
-    score += profileOptimized === "yes" ? 8 : profileOptimized === "partial" ? 5 : 1;
-    score += contentPillars === "yes" ? 8 : contentPillars === "somewhat" ? 5 : 1;
-    score += reviewResponse === "always" ? 10 : reviewResponse === "sometimes" ? 6 : 2;
-    score += ctaClarity === "clear" ? 8 : ctaClarity === "somewhat" ? 5 : 1;
-    score += primaryGoal === "clear" ? 8 : primaryGoal === "somewhat" ? 5 : 1;
-    score += targetLocationClarity === "clear" ? 6 : targetLocationClarity === "somewhat" ? 4 : 1;
-    score += profileCompleteness === "complete" ? 8 : profileCompleteness === "partial" ? 5 : 1;
-    score += recentReviews === "weekly" ? 8 : recentReviews === "some" ? 5 : 1;
-    score += trackingSetup === "full" ? 8 : trackingSetup === "partial" ? 5 : 1;
-
-    return Math.min(100, Math.max(0, score));
-  }, [contentPillars, ctaClarity, hasGoogleProfile, hasWebsite, postsPerWeek, primaryGoal, profileCompleteness, profileOptimized, recentReviews, reviewResponse, socialPlatforms, targetLocationClarity, trackingSetup]);
+  const audit = auditInsights.score;
 
   const openModal = () => {
     setCurrentStep(0);
     setIsModalOpen(true);
   };
 
-  const goNext = () => setCurrentStep((prev) => Math.min(totalSteps - 1, prev + 1));
+  const goNext = () =>
+    setCurrentStep((prev) => Math.min(totalSteps - 1, prev + 1));
   const goBack = () => setCurrentStep((prev) => Math.max(0, prev - 1));
-  const canProceed = currentStep !== 0 || (leadName.trim() !== "" && leadEmail.trim() !== "" && leadCompany.trim() !== "");
+  const canProceed =
+    currentStep !== 0 ||
+    (leadName.trim() !== "" &&
+      leadEmail.trim() !== "" &&
+      leadCompany.trim() !== "");
 
   const saveAuditSubmission = async () => {
     setSubmitState("saving");
@@ -98,6 +123,7 @@ export function ToolsSection() {
         name: leadName.trim(),
         email: leadEmail.trim(),
         company_name: leadCompany.trim(),
+        phone: leadPhone.trim() || null,
         has_website: hasWebsite,
         has_google_profile: hasGoogleProfile,
         posts_per_week: postsPerWeek,
@@ -111,9 +137,12 @@ export function ToolsSection() {
         profile_completeness: profileCompleteness,
         recent_reviews: recentReviews,
         tracking_setup: trackingSetup,
-        score: audit,
-        source_page: typeof window !== "undefined" ? window.location.pathname : "/",
-        user_agent: typeof navigator !== "undefined" ? navigator.userAgent : null,
+        score: auditInsights.score,
+        audit_insights: auditInsights.forDatabase,
+        source_page:
+          typeof window !== "undefined" ? window.location.pathname : "/",
+        user_agent:
+          typeof navigator !== "undefined" ? navigator.userAgent : null,
       });
 
       setSubmitState(error ? "error" : "idle");
@@ -126,7 +155,7 @@ export function ToolsSection() {
     question: string,
     value: string,
     setValue: (value: string) => void,
-    options: Array<{ label: string; value: string }>
+    options: Array<{ label: string; value: string }>,
   ) => (
     <div>
       <p className="text-sm text-gray-700 mb-3">{question}</p>
@@ -158,7 +187,8 @@ export function ToolsSection() {
         return (
           <div className="space-y-3">
             <p className="text-sm text-gray-700 text-center">
-              Add your basic details so Surge Media can share your audit follow-up.
+              Add your basic details so Surge Media can share your audit
+              follow-up.
             </p>
             <input
               type="text"
@@ -191,45 +221,80 @@ export function ToolsSection() {
           </div>
         );
       case 1:
-        return renderChoice("Do you have a website or booking page?", hasWebsite, setHasWebsite, [
-          { label: "Yes", value: "yes" },
-          { label: "No", value: "no" },
-        ]);
+        return renderChoice(
+          "Do you have a website or booking page?",
+          hasWebsite,
+          setHasWebsite,
+          [
+            { label: "Yes", value: "yes" },
+            { label: "No", value: "no" },
+          ],
+        );
       case 2:
-        return renderChoice("Is your Google Business Profile active?", hasGoogleProfile, setHasGoogleProfile, [
-          { label: "Yes", value: "yes" },
-          { label: "No", value: "no" },
-        ]);
+        return renderChoice(
+          "Is your Google Business Profile active?",
+          hasGoogleProfile,
+          setHasGoogleProfile,
+          [
+            { label: "Yes", value: "yes" },
+            { label: "No", value: "no" },
+          ],
+        );
       case 3:
-        return renderChoice("How often do you post content weekly?", postsPerWeek, setPostsPerWeek, [
-          { label: "3+ times", value: "3plus" },
-          { label: "About once", value: "1" },
-          { label: "Rarely", value: "0" },
-        ]);
+        return renderChoice(
+          "How often do you post content weekly?",
+          postsPerWeek,
+          setPostsPerWeek,
+          [
+            { label: "3+ times", value: "3plus" },
+            { label: "About once", value: "1" },
+            { label: "Rarely", value: "0" },
+          ],
+        );
       case 4:
-        return renderChoice("How many active social platforms do you maintain?", socialPlatforms, setSocialPlatforms, [
-          { label: "2+ active", value: "2plus" },
-          { label: "1 active", value: "1" },
-          { label: "None active", value: "0" },
-        ]);
+        return renderChoice(
+          "How many active social platforms do you maintain?",
+          socialPlatforms,
+          setSocialPlatforms,
+          [
+            { label: "2+ active", value: "2plus" },
+            { label: "1 active", value: "1" },
+            { label: "None active", value: "0" },
+          ],
+        );
       case 5:
-        return renderChoice("Are your social profiles optimized (bio, link, highlights, branding)?", profileOptimized, setProfileOptimized, [
-          { label: "Yes", value: "yes" },
-          { label: "Partially", value: "partial" },
-          { label: "No", value: "no" },
-        ]);
+        return renderChoice(
+          "Are your social profiles optimized (bio, link, highlights, branding)?",
+          profileOptimized,
+          setProfileOptimized,
+          [
+            { label: "Yes", value: "yes" },
+            { label: "Partially", value: "partial" },
+            { label: "No", value: "no" },
+          ],
+        );
       case 6:
-        return renderChoice("Do you post content pillars consistently (education, trust, offer)?", contentPillars, setContentPillars, [
-          { label: "Yes", value: "yes" },
-          { label: "Somewhat", value: "somewhat" },
-          { label: "Not really", value: "no" },
-        ]);
+        return renderChoice(
+          "Do you post content pillars consistently (education, trust, offer)?",
+          contentPillars,
+          setContentPillars,
+          [
+            { label: "Yes", value: "yes" },
+            { label: "Somewhat", value: "somewhat" },
+            { label: "Not really", value: "no" },
+          ],
+        );
       case 7:
-        return renderChoice("Do you respond to reviews consistently?", reviewResponse, setReviewResponse, [
-          { label: "Always", value: "always" },
-          { label: "Sometimes", value: "sometimes" },
-          { label: "Never", value: "never" },
-        ]);
+        return renderChoice(
+          "Do you respond to reviews consistently?",
+          reviewResponse,
+          setReviewResponse,
+          [
+            { label: "Always", value: "always" },
+            { label: "Sometimes", value: "sometimes" },
+            { label: "Never", value: "never" },
+          ],
+        );
       case 8:
         return renderChoice(
           "Is your call-to-action clear (Book now / WhatsApp / Contact)?",
@@ -239,20 +304,30 @@ export function ToolsSection() {
             { label: "Very clear", value: "clear" },
             { label: "Somewhat", value: "somewhat" },
             { label: "Unclear", value: "unclear" },
-          ]
+          ],
         );
       case 9:
-        return renderChoice("Is your primary marketing goal clearly defined?", primaryGoal, setPrimaryGoal, [
-          { label: "Yes, clearly defined", value: "clear" },
-          { label: "Somewhat", value: "somewhat" },
-          { label: "Not really", value: "unclear" },
-        ]);
+        return renderChoice(
+          "Is your primary marketing goal clearly defined?",
+          primaryGoal,
+          setPrimaryGoal,
+          [
+            { label: "Yes, clearly defined", value: "clear" },
+            { label: "Somewhat", value: "somewhat" },
+            { label: "Not really", value: "unclear" },
+          ],
+        );
       case 10:
-        return renderChoice("Is your target location/audience clearly defined?", targetLocationClarity, setTargetLocationClarity, [
-          { label: "Very clear", value: "clear" },
-          { label: "Somewhat", value: "somewhat" },
-          { label: "Unclear", value: "unclear" },
-        ]);
+        return renderChoice(
+          "Is your target location/audience clearly defined?",
+          targetLocationClarity,
+          setTargetLocationClarity,
+          [
+            { label: "Very clear", value: "clear" },
+            { label: "Somewhat", value: "somewhat" },
+            { label: "Unclear", value: "unclear" },
+          ],
+        );
       case 11:
         return renderChoice(
           "Are your profile details complete (hours, services, contact info, photos)?",
@@ -262,39 +337,57 @@ export function ToolsSection() {
             { label: "Mostly complete", value: "complete" },
             { label: "Partially complete", value: "partial" },
             { label: "Missing key details", value: "missing" },
-          ]
+          ],
         );
       case 12:
-        return renderChoice("How frequently do you receive new reviews?", recentReviews, setRecentReviews, [
-          { label: "Weekly", value: "weekly" },
-          { label: "A few per month", value: "some" },
-          { label: "Rarely or none", value: "none" },
-        ]);
+        return renderChoice(
+          "How frequently do you receive new reviews?",
+          recentReviews,
+          setRecentReviews,
+          [
+            { label: "Weekly", value: "weekly" },
+            { label: "A few per month", value: "some" },
+            { label: "Rarely or none", value: "none" },
+          ],
+        );
       default:
-        return renderChoice("Do you track conversions (GA4, Meta Pixel, UTM links)?", trackingSetup, setTrackingSetup, [
-          { label: "Yes, properly set up", value: "full" },
-          { label: "Partially", value: "partial" },
-          { label: "Not set up", value: "none" },
-        ]);
+        return renderChoice(
+          "Do you track conversions (GA4, Meta Pixel, UTM links)?",
+          trackingSetup,
+          setTrackingSetup,
+          [
+            { label: "Yes, properly set up", value: "full" },
+            { label: "Partially", value: "partial" },
+            { label: "Not set up", value: "none" },
+          ],
+        );
     }
   };
 
   return (
     <section className="w-full max-w-7xl mx-auto px-6 md:px-12 py-24 bg-white/50 backdrop-blur-sm rounded-[3rem] mb-14 md:mb-16 border border-white border-t border-gray-900/5">
       <div className="flex flex-col items-center text-center mb-16 animate-enter">
-        <span className="bg-[#e33c1d] text-white px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider mb-6">Free Resources</span>
+        <span className="bg-[#e33c1d] text-white px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider mb-6">
+          Free Resources
+        </span>
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 leading-[0.95]">
           Free <span className="font-playfair italic font-medium">Online</span>{" "}
-          <span className="font-playfair italic font-medium">Presence Audit</span>
+          <span className="font-playfair italic font-medium">
+            Presence Audit
+          </span>
         </h2>
         <p className="text-gray-500 mt-4 max-w-2xl text-base md:text-lg">
-          Get a quick review of your brand&apos;s digital presence. We&apos;ll check your social channels, Google profile, brand consistency, and basic conversion readiness.
+          Get a quick review of your brand&apos;s digital presence. We&apos;ll
+          check your social channels, Google profile, brand consistency, and
+          basic conversion readiness.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-enter delay-100">
         <div className="bg-white rounded-[2rem] p-8 shadow-xl shadow-gray-200/50 border border-gray-100">
-          <h3 className="text-2xl font-semibold tracking-tight text-gray-900 mb-6">What this free audit checks</h3>
+          <h3 className="text-2xl font-semibold tracking-tight text-gray-900 mb-6">
+            What this free audit checks
+          </h3>
           <ul className="space-y-4">
             {[
               "Website and booking page readiness",
@@ -310,33 +403,121 @@ export function ToolsSection() {
             ))}
           </ul>
           <p className="text-xs text-gray-500 mt-6">
-            Fast self-check based on essentials most businesses need to improve visibility.
+            Fast self-check based on essentials most businesses need to improve
+            visibility.
           </p>
         </div>
 
         <div className="bg-white rounded-[2rem] p-8 shadow-xl shadow-gray-200/50 border border-gray-100 text-center flex flex-col justify-center">
-          <h3 className="text-2xl font-semibold tracking-tight text-gray-900 mb-3">Run your free visibility score</h3>
-          <p className="text-sm text-gray-600 mb-6">Answer a short set of essential questions in a popup and get your score instantly.</p>
+          <h3 className="text-2xl font-semibold tracking-tight text-gray-900 mb-3">
+            Run your free visibility score
+          </h3>
+          <p className="text-sm text-gray-600 mb-6">
+            Answer a short set of essential questions in a popup and get your
+            score instantly.
+          </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <button type="button" onClick={openModal} className="bg-[#e33c1d] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#c7351a] transition-colors">
+            <button
+              type="button"
+              onClick={openModal}
+              className="bg-[#e33c1d] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#c7351a] transition-colors"
+            >
               Run free audit
             </button>
-            <a href="/contact" className="px-6 py-3 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:border-black transition-colors">
+            <a
+              href="/contact"
+              className="px-6 py-3 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:border-black transition-colors"
+            >
               Talk to us
             </a>
           </div>
 
           {showResult ? (
-            <div className="mt-6 rounded-xl bg-gray-50 border border-gray-200 p-5 text-center">
-              <p className="text-xs uppercase tracking-wider text-gray-500 font-semibold">Audit result</p>
-              <p className="text-4xl font-bold text-gray-900 mt-1">{audit}/100</p>
-              {audit < 100 ? (
-                <p className="text-sm text-gray-700 mt-2">Let us get you to 100%. Talk to us now!</p>
+            <div className="mt-6 rounded-xl bg-gray-50 border border-gray-200 p-5 text-left space-y-5">
+              <div className="text-center">
+                <p className="text-xs uppercase tracking-wider text-gray-500 font-semibold">
+                  Audit result
+                </p>
+                <p className="text-4xl font-bold text-gray-900 mt-1">
+                  {audit}/100
+                </p>
+                <p className="inline-flex mt-2 items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-800">
+                  {auditInsights.scoreBandTitle}
+                </p>
+                <p className="text-sm text-gray-600 mt-3 leading-relaxed max-w-md mx-auto">
+                  {auditInsights.scoreBandBlurb}
+                </p>
+              </div>
+
+              <div className="rounded-lg bg-white border border-gray-100 p-4">
+                <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
+                  What your score means
+                </p>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  {auditInsights.whatTheScoreMeasures}
+                </p>
+              </div>
+
+              <div className="rounded-lg bg-white border border-gray-100 p-4">
+                <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
+                  Why +1% matters
+                </p>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  {auditInsights.onePercentBusinessImpact}
+                </p>
+              </div>
+
+              {auditInsights.gaps.length > 0 ? (
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2 text-center">
+                    Room to grow
+                  </p>
+                  <ul className="space-y-2 max-h-56 overflow-y-auto pr-1">
+                    {auditInsights.gaps.map((g) => (
+                      <li
+                        key={g.id}
+                        className="flex items-center justify-between gap-3 rounded-lg border border-gray-100 bg-white px-3 py-2.5 text-sm"
+                      >
+                        <span className="font-medium text-gray-900 leading-snug text-left">
+                          {g.label}
+                        </span>
+                        <span className="shrink-0 text-xs font-bold text-[#e33c1d]">
+                          +{g.recoverablePoints}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-xs text-gray-500 text-center mt-3 leading-relaxed max-w-sm mx-auto">
+                    How we tackle each area depends on your brand. Surge Media
+                    will go more in-depth in a private review.
+                  </p>
+                </div>
               ) : (
-                <p className="text-sm text-gray-700 mt-2">Perfect score. You&apos;re doing great.</p>
+                <p className="text-sm text-center text-gray-700 font-medium">
+                  No major gaps on this checklist—nice work.
+                </p>
               )}
+
+              <div className="rounded-lg border border-[#e33c1d]/20 bg-[#e33c1d]/5 p-4">
+                <p className="text-xs font-bold uppercase tracking-wider text-[#c7351a] mb-2">
+                  Next steps with us
+                </p>
+                <p className="text-sm text-gray-800 leading-relaxed">
+                  {auditInsights.howSurgeCanHelpSummary}
+                </p>
+                <a
+                  href="/contact"
+                  className="mt-3 inline-flex w-full justify-center rounded-full bg-[#e33c1d] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#c7351a] transition-colors"
+                >
+                  Talk to us
+                </a>
+              </div>
+
               {submitState === "error" ? (
-                <p className="text-xs text-red-600 mt-2">We could not save your details. Please contact us directly.</p>
+                <p className="text-xs text-red-600 text-center">
+                  We could not save your details. Please contact us
+                  directly—your results are still shown above.
+                </p>
               ) : null}
             </div>
           ) : null}
@@ -349,8 +530,12 @@ export function ToolsSection() {
               <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-3xl border border-gray-200 shadow-2xl p-6 md:p-8">
                 <div className="mb-6">
                   <div className="w-full text-center">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-[#e33c1d] mb-2">Free online presence audit</p>
-                    <h4 className="text-2xl font-semibold tracking-tight text-gray-900">Test your brand for free</h4>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[#e33c1d] mb-2">
+                      Free online presence audit
+                    </p>
+                    <h4 className="text-2xl font-semibold tracking-tight text-gray-900">
+                      Test your brand for free
+                    </h4>
                   </div>
                 </div>
 
@@ -371,11 +556,21 @@ export function ToolsSection() {
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
-                  <button type="button" onClick={goBack} disabled={currentStep === 0} className="w-full px-6 py-3 rounded-full text-sm font-medium border border-gray-300 text-gray-800 disabled:opacity-40 disabled:cursor-not-allowed hover:border-[#e33c1d] transition-colors">
+                  <button
+                    type="button"
+                    onClick={goBack}
+                    disabled={currentStep === 0}
+                    className="w-full px-6 py-3 rounded-full text-sm font-medium border border-gray-300 text-gray-800 disabled:opacity-40 disabled:cursor-not-allowed hover:border-[#e33c1d] transition-colors"
+                  >
                     Back
                   </button>
                   {currentStep < totalSteps - 1 ? (
-                    <button type="button" disabled={!canProceed} onClick={goNext} className="w-full bg-[#e33c1d] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#c7351a] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <button
+                      type="button"
+                      disabled={!canProceed}
+                      onClick={goNext}
+                      className="w-full bg-[#e33c1d] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#c7351a] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
                       Next
                     </button>
                   ) : (
@@ -392,13 +587,17 @@ export function ToolsSection() {
                       {submitState === "saving" ? "Saving..." : "Show my score"}
                     </button>
                   )}
-                  <button type="button" onClick={() => setIsModalOpen(false)} className="w-full px-6 py-3 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:border-[#e33c1d] hover:text-[#e33c1d] transition-all duration-300">
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="w-full px-6 py-3 rounded-full text-sm font-medium border border-gray-300 text-gray-800 hover:border-[#e33c1d] hover:text-[#e33c1d] transition-all duration-300"
+                  >
                     Cancel
                   </button>
                 </div>
               </div>
             </div>,
-            document.body
+            document.body,
           )
         : null}
     </section>
