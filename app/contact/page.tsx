@@ -31,6 +31,11 @@ export default function ContactPage() {
       const form = event.currentTarget;
       const formData = new FormData(form);
 
+      const servicesInterested = formData
+        .getAll("services_interested")
+        .map((value) => String(value).trim())
+        .filter(Boolean);
+
       const payload = {
         role: String(formData.get("role") ?? "").trim(),
         name: String(formData.get("name") ?? "").trim(),
@@ -38,6 +43,8 @@ export default function ContactPage() {
         email: String(formData.get("email") ?? "").trim(),
         whatsapp: String(formData.get("whatsapp") ?? "").trim(),
         state: String(formData.get("state") ?? "").trim(),
+        marketing_budget: String(formData.get("marketing_budget") ?? "").trim(),
+        services_interested: servicesInterested,
         message: String(formData.get("message") ?? "").trim(),
         source_page:
           typeof window !== "undefined" ? window.location.pathname : "/contact",
@@ -210,6 +217,59 @@ export default function ContactPage() {
                 </div>
                 <div className="hidden md:block" />
               </div>
+
+              <div>
+                <label
+                  htmlFor="marketing_budget"
+                  className="block text-sm font-semibold text-gray-900 mb-2"
+                >
+                  What is your current marketing budget?
+                </label>
+                <select
+                  id="marketing_budget"
+                  name="marketing_budget"
+                  required
+                  defaultValue=""
+                  className="w-full rounded-xl border border-gray-900/15 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#e33c1d] focus:ring-2 focus:ring-[#e33c1d]/20"
+                >
+                  <option value="" disabled>
+                    Select a range
+                  </option>
+                  <option>Less than RM 2,000</option>
+                  <option>RM 2,000 - RM 5,000</option>
+                  <option>RM 5,001 - RM 8,000</option>
+                  <option>Above RM 10,000</option>
+                </select>
+              </div>
+
+              <fieldset>
+                <legend className="block text-sm font-semibold text-gray-900 mb-3">
+                  What services are you interested in?
+                </legend>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    "More visibility",
+                    "More social media views",
+                    "New leads",
+                    "Product marketing",
+                    "Google reviews management",
+                    "Social media management",
+                  ].map((service) => (
+                    <label
+                      key={service}
+                      className="flex items-start gap-3 rounded-xl border border-gray-900/15 bg-white px-4 py-3 text-sm text-gray-900 cursor-pointer has-[:checked]:border-[#e33c1d] has-[:checked]:ring-2 has-[:checked]:ring-[#e33c1d]/20"
+                    >
+                      <input
+                        type="checkbox"
+                        name="services_interested"
+                        value={service}
+                        className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 text-[#e33c1d] focus:ring-[#e33c1d]/20"
+                      />
+                      <span>{service}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
 
               <div>
                 <label
